@@ -1,0 +1,11 @@
+<h1>{{ question_detail.subject }}</h1>
+
+<div>
+    {{ question_detail.content }}
+</div>
+
+<form action="{% url 'pyweb:answer_create' question_detail.id %}" method="post">
+    {% csrf_token %}
+    <textarea name="content" id="content" row="15"></textarea>
+    <input type="submit" value="답변등록">
+</form>
