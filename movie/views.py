@@ -1,4 +1,5 @@
 from drf_yasg import openapi
+from django.shortcuts import render
 from rest_framework import status, viewsets, mixins
 from rest_framework.response import Response
 from django.views import View
@@ -12,6 +13,7 @@ from .serializers import MusicSerializer, MusicBodySerializer, MusicQuerySeriali
 
 # https://velog.io/@lu_at_log/drf-yasg-and-swagger 참조
 
+
 class MusicViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, View):
     serializer_class = MusicSerializer   # 이 클래스형 view 에서 사용할 시리얼라이저를 선언
 
@@ -21,6 +23,9 @@ class MusicViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, View):
     @swagger_auto_schema(query_serializer=MusicQuerySerializer)
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
+
+    def view_map(self, request):
+        return render(request, 'maps/naver-map.html')
 
     def get_queryset(self):
         conditions = {
